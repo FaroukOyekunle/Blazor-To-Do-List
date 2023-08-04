@@ -1,18 +1,27 @@
-﻿@page "/fetchdata"
+<!-- The @page directive specifies the URL path for this component. In this case, the component will be rendered at "/fetchdata". -->
+@page "/fetchdata"
 
+<!-- The @using directive allows you to reference namespaces and use their types within the component. In this case, it imports the "BlazorToDoList.App.Data" namespace. -->
 @using BlazorToDoList.App.Data
+
+<!-- The @inject directive enables dependency injection for the WeatherForecastService, allowing the component to use the service. -->
 @inject WeatherForecastService ForecastService
 
+<!-- The <h1> element defines a heading with level 1. In this case, it displays "Weather forecast". -->
 <h1>Weather forecast</h1>
 
+<!-- The <p> element defines a paragraph. It provides some information about the purpose of this component. -->
 <p>This component demonstrates fetching data from a service.</p>
 
+<!-- The @if directive conditionally renders content based on the value of "forecasts" variable. -->
 @if (forecasts == null)
 {
+    <!-- If "forecasts" is null, display a loading message. -->
     <p><em>Loading...</em></p>
 }
 else
 {
+    <!-- If "forecasts" is not null, display the weather forecast data in a table. -->
     <table class="table">
         <thead>
             <tr>
@@ -23,8 +32,10 @@ else
             </tr>
         </thead>
         <tbody>
+            <!-- The @foreach directive iterates over each "forecast" in the "forecasts" array. -->
             @foreach (var forecast in forecasts)
             {
+                <!-- For each forecast, display its date, temperature in Celsius and Fahrenheit, and summary in separate table cells. -->
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
@@ -36,11 +47,16 @@ else
     </table>
 }
 
+<!-- The @code block contains the C# code that defines the component's logic. -->
 @code {
+    // Define an array variable named "forecasts" of type WeatherForecast to store the fetched weather data.
     WeatherForecast[] forecasts;
 
+    // The "OnInitializedAsync" lifecycle method is called when the component is initialized.
+    // Override this method to perform asynchronous operations when the component is loaded.
     protected override async Task OnInitializedAsync()
     {
+        // Call the ForecastService to get the weather forecast data and assign it to the "forecasts" variable.
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
     }
 }
