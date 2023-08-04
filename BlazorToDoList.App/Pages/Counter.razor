@@ -1,16 +1,24 @@
-﻿@page "/counter"
+<!-- The @page directive specifies the URL path for this component. In this case, the component will be rendered at "/counter". -->
+@page "/counter"
 
+<!-- The <h1> element defines a heading with level 1. In this case, it displays "Counter". -->
 <h1>Counter</h1>
 
+<!-- The <p> element defines a paragraph. It displays the current count using the @currentCount variable. -->
 <p>Current count: @currentCount</p>
 
+<!-- The @onclick directive binds the "IncrementCount" method to the button's click event. -->
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<!-- The @code block contains the C# code that defines the component's logic. -->
 @code {
+    // Define a variable named "currentCount" of type int and initialize it to 0.
     int currentCount = 0;
 
+    // Define the "IncrementCount" method, which will be executed when the button is clicked.
     void IncrementCount()
     {
+        // Increment the "currentCount" variable by 1.
         currentCount++;
     }
 }
