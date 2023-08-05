@@ -1,26 +1,30 @@
-﻿@page "/todo"
+<!-- The @page directive specifies the URL path for this component. In this case, the component will be rendered at the "/todo" URL path. -->
+@page "/todo"
 
+<!-- Importing required namespaces for this component. -->
 @using BlazorToDoList.App.Services
 @using BlazorToDoList.App.Models
 @inject IToDoService ToDoService
 
+<!-- The <h1> element defines a heading with level 1. It displays "To-Do List". -->
 <h1>To-Do List</h1>
 
+<!-- The if-else block to check if the "items" list is null, empty, or contains data. -->
 @if (items == null)
 {
     <p><em>Loading...</em></p>
 }
-
 else if (!items.Any())
 {
-    <p><em>No ToDo items exist.  Please add some.</em></p>
+    <p><em>No ToDo items exist. Please add some.</em></p>
 }
-
 else
 {
+    <!-- The table to display the list of ToDo items. -->
     <table class="table">
         <thead>
             <tr>
+                <!-- The header columns with sorting functionality. -->
                 <th>Remove</th>
                 <th>
                     <span class="sort-link" @onclick=@(() => SortTable("DateCreated"))>Date</span>
@@ -34,28 +38,32 @@ else
             </tr>
         </thead>
         <tbody>
+            <!-- Iterating through each ToDo item to populate the table rows. -->
             @foreach (var item in items)
             {
-            <tr style="@(item.IsComplete ? "text-decoration: line-through" : "")">
-                <td><button @onclick="(() => RemoveTodo(item.ID))"><i class="oi oi-trash"></i></button></td>
-                <td>@item.DateCreated</td>
-                <td>@item.Description</td>
-                <td>
-                    @if (item.IsComplete)
-                    {
-                        <input type=checkbox @onchange="(() => ToggleToDo(item.ID))" checked />
-                    }
-                    else
-                    {
-                        <input type=checkbox @onchange="(() => ToggleToDo(item.ID))" />
-                    }
-                </td>
-            </tr>
+                <!-- The table row for each ToDo item. If the item is completed, the text-decoration will be line-through. -->
+                <tr style="@(item.IsComplete ? "text-decoration: line-through" : "")">
+                    <td><button @onclick="(() => RemoveTodo(item.ID))"><i class="oi oi-trash"></i></button></td>
+                    <td>@item.DateCreated</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <!-- The checkbox to mark completion status. -->
+                        @if (item.IsComplete)
+                        {
+                            <input type=checkbox @onchange="(() => ToggleToDo(item.ID))" checked />
+                        }
+                        else
+                        {
+                            <input type=checkbox @onchange="(() => ToggleToDo(item.ID))" />
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
 
+<!-- Adding input and button elements to add a new ToDo item. -->
 @if (items != null)
 {
     <input placeholder="A new ToDo item" @bind="@newItem" />
@@ -63,28 +71,25 @@ else
 }
 
 @code{
+    // Variables and properties used in the component.
     List<ToDoItem> items = new List<ToDoItem>();
     private string newItem;
     private bool IsSortedAscending;
     private string CurrentSortColumn;
 
-    /// <summary>
-    /// This method is responsible for loading the initial data the page requires.  We store this sample data
-    /// in a JSON file.
-    /// </summary>
-    /// <returns></returns>
+    // The OnInitialized method is called when the component is initialized.
+    // In this method, the initial data is loaded from the ToDoService.
     protected override void OnInitialized()
     {
         items = ToDoService.Get();
     }
 
-    /// <summary>
-    /// This method adds a new ToDo item.
-    /// </summary>
+    // The AddTodo method is called when the "Create" button is clicked to add a new ToDo item.
     private void AddTodo()
     {
         if (!string.IsNullOrWhiteSpace(newItem))
         {
+            // Creating a new ToDoItem and adding it to the items list.
             var newToDoItem = new ToDoItem()
             {
                 DateCreated = DateTime.Now,
@@ -94,20 +99,23 @@ else
 
             items = ToDoService.Add(newToDoItem);
 
-            newItem = string.Empty; //We need to reset this string, otherwise the text box will still contain the value typed in.
+            newItem = string.Empty; // Resetting the newItem string to clear the text box.
         }
     }
 
+    // The ToggleToDo method is called when the checkbox is clicked to mark an item as complete or incomplete.
     private void ToggleToDo(Guid id)
     {
         items = ToDoService.Toggle(id);
     }
 
+    // The RemoveTodo method is called when the "Remove" button is clicked to delete a ToDo item.
     private void RemoveTodo(Guid id)
     {
         items = ToDoService.Delete(id);
     }
 
+    // The GetSortStyle method returns the sort style (upward triangle, downward triangle, or empty) for the specified column name.
     private string GetSortStyle(string columnName)
     {
         if (CurrentSortColumn != columnName)
@@ -124,24 +132,27 @@ else
         }
     }
 
+    // The SortTable method is called when a header column with sorting functionality is clicked.
+    // It sorts the items list based on the selected column and direction (ascending or descending).
     private void SortTable(string columnName)
     {
         if (columnName != CurrentSortColumn)
         {
-            //We need to force order by descending on the new column
+            // Sorting in ascending order based on the selected column.
             items = items.OrderBy(x => x.GetType().GetProperty(columnName).GetValue(x, null)).ToList();
             CurrentSortColumn = columnName;
             IsSortedAscending = true;
-
         }
-        else //Sorting against same column but in different direction
+        else // Sorting against the same column but in a different direction.
         {
             if (IsSortedAscending)
             {
+                // Sorting in descending order based on the selected column.
                 items = items.OrderByDescending(x => x.GetType().GetProperty(columnName).GetValue(x, null)).ToList();
             }
             else
             {
+                // Sorting in ascending order based on the selected column.
                 items = items.OrderBy(x => x.GetType().GetProperty(columnName).GetValue(x, null)).ToList();
             }
 
