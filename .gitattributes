@@ -1,15 +1,19 @@
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
+# Automatically normalize line endings to the platform's standard (CRLF on Windows, LF on Unix-based systems).
+
 * text=auto
 
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
-# This is need for earlier builds of msysgit that does not have it on by
+# This is needed for earlier builds of msysgit that do not have it on by
 # default for csharp files.
-# Note: This is only used by command line
+# Note: This is only used by the command-line interface.
 ###############################################################################
+# Set the default behavior for diffing C# files in the command prompt.
+# Uncommenting this line enables better diff visualization for C# files.
 #*.cs     diff=csharp
 
 ###############################################################################
@@ -20,8 +24,10 @@
 # the diff markers are never inserted). Diff markers may cause the following 
 # file extensions to fail to load in VS. An alternative would be to treat
 # these files as binary and thus will always conflict and require user
-# intervention with every merge. To do so, just uncomment the entries below
+# intervention with every merge. To do so, just uncomment the entries below.
 ###############################################################################
+# Set the merge driver for specific project and solution file types.
+# Uncommenting these lines will treat the specified file types as binary and always conflict during merge.
 #*.sln       merge=binary
 #*.csproj    merge=binary
 #*.vbproj    merge=binary
@@ -36,21 +42,25 @@
 #*.wwaproj   merge=binary
 
 ###############################################################################
-# behavior for image files
+# Behavior for image files
 #
-# image files are treated as binary by default.
+# Image files are treated as binary by default.
 ###############################################################################
+# Treat image files as binary to avoid diffing them in Git.
+# Uncommenting these lines will treat the specified image file extensions as binary.
 #*.jpg   binary
 #*.png   binary
 #*.gif   binary
 
 ###############################################################################
-# diff behavior for common document formats
+# Diff behavior for common document formats
 # 
 # Convert binary document formats to text before diffing them. This feature
 # is only available from the command line. Turn it on by uncommenting the 
 # entries below.
 ###############################################################################
+# Configure diff behavior for common document formats.
+# Uncommenting these lines allows Git to convert binary document formats to plain text before diffing.
 #*.doc   diff=astextplain
 #*.DOC   diff=astextplain
 #*.docx  diff=astextplain
