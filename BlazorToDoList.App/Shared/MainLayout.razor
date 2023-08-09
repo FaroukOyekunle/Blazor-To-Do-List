@@ -1,15 +1,18 @@
 @inherits LayoutComponentBase
 
+<!-- Sidebar section -->
 <div class="sidebar">
-    <NavMenu />
+    <NavMenu /> <!-- Include the NavMenu component in the sidebar -->
 </div>
 
+<!-- Main content section -->
 <div class="main">
     <div class="top-row px-4">
         <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
+        <!-- Link to Microsoft ASP.NET documentation (opens in a new tab) -->
     </div>
 
     <div class="content px-4">
-        @Body
+        @Body <!-- Display the main content determined by the child component -->
     </div>
 </div>
