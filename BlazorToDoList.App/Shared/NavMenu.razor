@@ -1,27 +1,36 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+<!-- Top row navigation bar -->
+<div class="top-row pl-4 navbar navbar-dark">
+    <!-- Application brand link -->
     <a class="navbar-brand" href="">BlazorToDoList.App</a>
+    <!-- Toggle button for collapsing navigation menu -->
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
+<!-- Navigation menu container with dynamic CSS class -->
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <!-- Unordered list for navigation links -->
     <ul class="nav flex-column">
+        <!-- Home link -->
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
+        <!-- Counter link -->
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
                 <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
         </li>
+        <!-- To-Do link -->
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="todo">
                 <span class="oi oi-list" aria-hidden="true"></span> To-Do
             </NavLink>
         </li>
+        <!-- Fetch Data link -->
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="fetchdata">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
@@ -31,10 +40,13 @@
 </div>
 
 @code {
+    // Variable to control navigation menu collapse
     bool collapseNavMenu = true;
 
+    // Computed CSS class for navigation menu container
     string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    // Toggle navigation menu state
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
