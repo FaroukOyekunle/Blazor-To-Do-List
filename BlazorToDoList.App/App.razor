@@ -1,10 +1,15 @@
-﻿
+<!-- Define the router for managing navigation -->
 <Router AppAssembly="@typeof(Program).Assembly">
+    <!-- Check if a route is found -->
     <Found Context="routeData">
+        <!-- Display the appropriate component based on the route -->
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
+    <!-- Handle the case when a route is not found -->
     <NotFound>
+        <!-- Use the main layout for displaying content -->
         <LayoutView Layout="@typeof(MainLayout)">
+            <!-- Display a message for the user -->
             <p>Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>
